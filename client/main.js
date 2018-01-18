@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, IndexRoute, browserHistory} from 'react-router';
-import { composeWithTracker } from 'react-komposer';
-
+// import { composeWithTracker } from 'react-komposer';
 
 import FrontLayout from './front/components/FrontLayout.js';
 import SecureLayout from './secure/components/SecureLayout.js';
@@ -168,3 +167,4 @@ const routes = (
 Meteor.startup( () => {
 	ReactDOM.render(routes, document.querySelector('.render-target'));
 });
+
