@@ -1,7 +1,7 @@
 import { WebApp } from 'meteor/webapp';
 import ConnectRoute from 'connect-route';
 
-const whiteList = Meteor.settings.private.apiWhitelist;
+let whiteList = Meteor.settings.private.apiWhitelist;
 
 function getArtist (req, res, next) {
 	let artist = Artists.findOne({_id: req.params.id});
