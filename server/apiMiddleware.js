@@ -10,7 +10,7 @@ function getArtistById (req, res, next) {
 		let artist = Artists.findOne({_id: req.params.id});
 		if (artist) {
 			artist = JSON.stringify(artist);
-			res.writeHead(200, {'Access-Control-Allow-Origin': whiteList, 'Access-Control-Allow-Methods': 'GET'});
+			res.writeHead(200, {'Access-Control-Allow-Origin': req.headers.host, 'Access-Control-Allow-Methods': 'GET'});
 			res.end(artist);
 		} else {
 			next();
@@ -28,7 +28,7 @@ function getArtistByName (req, res, next) {
 		let artist = Artists.findOne({name: req.params.name});
 		if (artist) {
 			artist = JSON.stringify(artist);
-			res.writeHead(200, {'Access-Control-Allow-Origin': whiteList, 'Access-Control-Allow-Methods': 'GET'});
+			res.writeHead(200, {'Access-Control-Allow-Origin': req.headers.host, 'Access-Control-Allow-Methods': 'GET'});
 			res.end(artist);
 		} else {
 			next();
@@ -66,7 +66,7 @@ function listReleases (req, res, next) {
 		let releases = Releases.find({}, {fields: {_id: 1, name: 1}}).fetch();
 		if (releases) {
 			releases = JSON.stringify(releases);
-			res.writeHead(200, {'Access-Control-Allow-Origin': whiteList, 'Access-Control-Allow-Methods': 'GET'});
+			res.writeHead(200, {'Access-Control-Allow-Origin': req.headers.host, 'Access-Control-Allow-Methods': 'GET'});
 			res.end(releases);
 		} else {
 			next();
