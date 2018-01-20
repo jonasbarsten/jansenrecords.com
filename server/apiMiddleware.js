@@ -4,16 +4,18 @@ import ConnectRoute from 'connect-route';
 let whiteList = Meteor.settings.private.apiWhitelist;
 
 function getArtistById (req, res, next) {
-	const allow = (whiteList.indexOf(req.headers.host) != -1) ? true : false;
+	const origin = req.headers.origin;
+	const allow = (whiteList.indexOf(origin) != -1) ? true : false;
 
 	if (allow) {
 		let artist = Artists.findOne({_id: req.params.id});
 		if (artist) {
 			artist = JSON.stringify(artist);
-			res.writeHead(200, {'Access-Control-Allow-Origin': req.headers.host, 'Access-Control-Allow-Methods': 'GET'});
+			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end(artist);
 		} else {
-			next();
+			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end();
 		}
 	} else {
 		res.writeHead(403);
@@ -22,16 +24,38 @@ function getArtistById (req, res, next) {
 }
 
 function getArtistByName (req, res, next) {
-	const allow = (whiteList.indexOf(req.headers.host) != -1) ? true : false;
+	const origin = req.headers.origin;
+	const allow = (whiteList.indexOf(origin) != -1) ? true : false;
 
 	if (allow) {
 		let artist = Artists.findOne({name: req.params.name});
 		if (artist) {
 			artist = JSON.stringify(artist);
-			res.writeHead(200, {'Access-Control-Allow-Origin': req.headers.host, 'Access-Control-Allow-Methods': 'GET'});
+			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end(artist);
 		} else {
-			next();
+			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end();
+		}
+	} else {
+		res.writeHead(403);
+		res.end();
+	}
+}
+
+function getReleasesByArtistId (req, res, next) {
+	const origin = req.headers.origin;
+	const allow = (whiteList.indexOf(origin) != -1) ? true : false;
+
+	if (allow) {
+		let releases = Releases.find({artists: {$in: [req.params.id]}}).fetch();
+		if (releases) {
+			releases = JSON.stringify(releases);
+			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end(releases);
+		} else {
+			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end();
 		}
 	} else {
 		res.writeHead(403);
@@ -40,7 +64,8 @@ function getArtistByName (req, res, next) {
 }
 
 function listArtists (req, res, next) {
-	const allow = (whiteList.indexOf(req.headers.host) != -1) ? true : false;
+	const origin = req.headers.origin;
+	const allow = (whiteList.indexOf(origin) != -1) ? true : false;
 
 	if (allow) {
 
@@ -48,10 +73,11 @@ function listArtists (req, res, next) {
 
 		if (artists) {
 			artists = JSON.stringify(artists);
-			res.writeHead(200, {'Access-Control-Allow-Origin': req.headers.host, 'Access-Control-Allow-Methods': 'GET'});
+			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end(artists);
 		} else {
-			next();
+			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end();
 		}
 	} else {
 		res.writeHead(403);
@@ -60,16 +86,18 @@ function listArtists (req, res, next) {
 }
 
 function listReleases (req, res, next) {
-	const allow = (whiteList.indexOf(req.headers.host) != -1) ? true : false;
+	const origin = req.headers.origin;
+	const allow = (whiteList.indexOf(origin) != -1) ? true : false;
 
 	if (allow) {
 		let releases = Releases.find({}, {fields: {_id: 1, name: 1}}).fetch();
 		if (releases) {
 			releases = JSON.stringify(releases);
-			res.writeHead(200, {'Access-Control-Allow-Origin': req.headers.host, 'Access-Control-Allow-Methods': 'GET'});
+			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end(releases);
 		} else {
-			next();
+			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end();
 		}	
 	} else {
 		res.writeHead(403);
@@ -80,6 +108,7 @@ function listReleases (req, res, next) {
 const middleware = ConnectRoute( function(router) {
 	router.get('/api/artistById/:id', getArtistById);
 	router.get('/api/artistByName/:name', getArtistByName);
+	router.get('/api/releasesByArtistId/:id', getReleasesByArtistId);
 	router.get('/api/artists', listArtists);
 	router.get('/api/releases', listReleases);
 });
