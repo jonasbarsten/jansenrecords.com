@@ -105,12 +105,33 @@ function listReleases (req, res, next) {
 	}
 }
 
+function listTracks (req, res, next) {
+	const origin = req.headers.origin;
+	const allow = (whiteList.indexOf(origin) != -1) ? true : false;
+
+	if (allow) {
+		let tracks = Tracks.find({}, {fields: {_id: 1, name: 1}}).fetch();
+		if (tracks) {
+			tracks = JSON.stringify(tracks);
+			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end(tracks);
+		} else {
+			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end();
+		}	
+	} else {
+		res.writeHead(403);
+		res.end();
+	}
+}
+
 const middleware = ConnectRoute( function(router) {
 	router.get('/api/artistById/:id', getArtistById);
 	router.get('/api/artistByName/:name', getArtistByName);
 	router.get('/api/releasesByArtistId/:id', getReleasesByArtistId);
 	router.get('/api/artists', listArtists);
 	router.get('/api/releases', listReleases);
+	router.get('/api/tracks', listTracks);
 });
 
 WebApp.connectHandlers.use(middleware);
