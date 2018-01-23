@@ -72,10 +72,11 @@ function getArtistById (req, res, next) {
 	if (allow) {
 		let artist = Artists.findOne({_id: req.params.id});
 		if (artist) {
+			Meteor.call('artistApiView', artist._id);
+			
 			artist = JSON.stringify(artist);
 			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end(artist);
-			Meteor.call('artistApiView', artist._id);
 		} else {
 			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end();
@@ -93,10 +94,11 @@ function getArtistByName (req, res, next) {
 	if (allow) {
 		let artist = Artists.findOne({name: req.params.name});
 		if (artist) {
+			Meteor.call('artistApiView', artist._id);
+
 			artist = JSON.stringify(artist);
 			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end(artist);
-			Meteor.call('artistApiView', artist._id);
 		} else {
 			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end();
