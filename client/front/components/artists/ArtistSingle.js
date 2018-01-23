@@ -25,6 +25,10 @@ export default class ArtistSingle extends TrackerReact(React.Component) {
 		this.state.subscription.releases.stop();
 	}
 
+	componentDidMount() {
+		Meteor.call('artistView', this.props.params.artistId);
+	}
+
 	getArtist() {
 		return Artists.find({_id: this.props.params.artistId}).fetch();
 	}

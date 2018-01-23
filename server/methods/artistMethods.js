@@ -84,5 +84,11 @@ Meteor.methods({
 	},
 	'updateSongkickId': function (artistId, songkickId) {
 		Artists.update({_id: artistId}, {$set: {songkickId: songkickId}});
+	},
+	'artistView': function (id) {
+		Artists.update({_id: id}, {$inc: {views: 1}});
+	},
+	'artistApiView': function (id) {
+		Artists.update({_id: id}, {$inc: {apiViews: 1}});
 	}
 })

@@ -23,6 +23,10 @@ const ArtistsSchema = new SimpleSchema({
 		type: Number,
 		optional: true
 	},
+	"apiViews": {
+		type: Number,
+		optional: true
+	},
 	"text": {
 		type: String,
 		optional: true

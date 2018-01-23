@@ -75,6 +75,7 @@ function getArtistById (req, res, next) {
 			artist = JSON.stringify(artist);
 			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end(artist);
+			Meteor.call('artistApiView', artist._id);
 		} else {
 			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end();
@@ -95,6 +96,27 @@ function getArtistByName (req, res, next) {
 			artist = JSON.stringify(artist);
 			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end(artist);
+			Meteor.call('artistApiView', artist._id);
+		} else {
+			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end();
+		}
+	} else {
+		res.writeHead(403);
+		res.end();
+	}
+}
+
+function getReleaseById (req, res, next) {
+	const origin = req.headers.origin;
+	const allow = (whiteList.indexOf(origin) != -1) ? true : false;
+
+	if (allow) {
+		let release = Releases.findOne({_id: req.params.id});
+		if (release) {
+			release = JSON.stringify(release);
+			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end(release);
 		} else {
 			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
 			res.end();
@@ -150,6 +172,7 @@ const middleware = ConnectRoute( function(router) {
 	router.get('/api/releases', listReleases);
 	router.get('/api/tracks', listTracks);
 	router.get('/api/artistById/:id', getArtistById);
+	router.get('/api/releaseById/:id', getReleaseById);
 	router.get('/api/artistByName/:name', getArtistByName);
 	router.get('/api/releasesByArtistId/:id', getReleasesByArtistId);
 	router.get('/api/tracksByReleaseId/:id', getTracksByReleaseId);
