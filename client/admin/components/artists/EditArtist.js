@@ -285,6 +285,7 @@ export default class EditArtist extends TrackerReact(React.Component) {
 												placeholder="Songkick ID"
 												defaultValue={songkickId}
 											/>
+											<button type="submit" className="btn btn-success">Save</button>
 										</form>
 
 										<hr />
