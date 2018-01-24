@@ -35,9 +35,11 @@ Meteor.methods({
 			Pages.update({urlFriendlyName: urlFriendlyName}, {$set: {isInMenu: true}});
 			return 'added';
 		}
-
 	},
 	'pageView': function (urlFriendlyName) {
 		Pages.update({urlFriendlyName: urlFriendlyName}, {$inc: {views: 1}});
+	},
+	'pageApiView': function (urlFriendlyName) {
+		Pages.update({urlFriendlyName: urlFriendlyName}, {$inc: {apiViews: 1}});
 	}
 });

@@ -65,6 +65,48 @@ function listTracks (req, res, next) {
 	}
 }
 
+function listPages (req, res, next) {
+	const origin = req.headers.origin;
+	const allow = (whiteList.indexOf(origin) != -1) ? true : false;
+
+	if (allow) {
+		let pages = Pages.find({}, {fields: {_id: 1, name: 1}}).fetch();
+		if (pages) {
+			pages = JSON.stringify(pages);
+			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end(pages);
+		} else {
+			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end();
+		}	
+	} else {
+		res.writeHead(403);
+		res.end();
+	}
+}
+
+function getPageById (req, res, next) {
+	const origin = req.headers.origin;
+	const allow = (whiteList.indexOf(origin) != -1) ? true : false;
+
+	if (allow) {
+		let page = Pages.findOne({_id: req.params.id});
+		if (page) {
+			Meteor.call('pageApiView', page._id);
+			
+			page = JSON.stringify(page);
+			res.writeHead(200, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end(page);
+		} else {
+			res.writeHead(404, {'Access-Control-Allow-Origin': origin, 'Access-Control-Allow-Methods': 'GET'});
+			res.end();
+		}
+	} else {
+		res.writeHead(403);
+		res.end();
+	}
+}
+
 function getArtistById (req, res, next) {
 	const origin = req.headers.origin;
 	const allow = (whiteList.indexOf(origin) != -1) ? true : false;
@@ -173,8 +215,10 @@ const middleware = ConnectRoute( function(router) {
 	router.get('/api/artists', listArtists);
 	router.get('/api/releases', listReleases);
 	router.get('/api/tracks', listTracks);
+	router.get('/api/pages', listPages);
 	router.get('/api/artistById/:id', getArtistById);
 	router.get('/api/releaseById/:id', getReleaseById);
+	router.get('/api/pageById/:id', getPageById);
 	router.get('/api/artistByName/:name', getArtistByName);
 	router.get('/api/releasesByArtistId/:id', getReleasesByArtistId);
 	router.get('/api/tracksByReleaseId/:id', getTracksByReleaseId);
