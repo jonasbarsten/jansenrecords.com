@@ -35,6 +35,10 @@ const PagesSchema = new SimpleSchema({
 		type: Number,
 		optional: true
 	},
+	"apiViews": {
+		type: Number,
+		optional: true
+	},
 	"created": {
 		type: Date,
 		optional: true
