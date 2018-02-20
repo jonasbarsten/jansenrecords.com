@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 
 class ListShortlinks extends Component {
 
@@ -65,7 +65,7 @@ class ListShortlinks extends Component {
 	}
 }
 
-export default createContainer(() => {
+export default withTracker(() => {
 
 	Meteor.subscribe('shortlinks');
 
@@ -73,4 +73,4 @@ export default createContainer(() => {
 		shortlinks: Shortlinks.find().fetch()
 	}
 
-},ListShortlinks);
+})(ListShortlinks);
