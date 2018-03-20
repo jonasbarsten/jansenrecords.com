@@ -78,6 +78,11 @@ export default class ArtistSingle extends TrackerReact(React.Component) {
 					document.title = "Jansen || " + artist.name;
 
 					const songkick = artist.songkickId ? <div><ArtistEvents songkickId={artist.songkickId} /> <hr /></div>: '';
+					let imageUrl = artist.imageUrl;
+
+					if (artist.bannerImageId) {
+						imageUrl = `/images/${artist.bannerImageId}?size=800x400`;
+					}
 
 					return (
 						<div key={artist._id}>
@@ -85,7 +90,7 @@ export default class ArtistSingle extends TrackerReact(React.Component) {
 							<div className="container-fluid">
 
 								<div className="artist-banner">
-									<img src={artist.imageUrl} className="img-responsive" />
+									<img src={imageUrl} className="img-responsive" />
 								</div>
 								
 								<div className="container">

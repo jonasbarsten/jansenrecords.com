@@ -7,6 +7,7 @@ import Reorder from 'react-reorder';
 import _ from 'lodash';
 
 import UploadSingleFile from '../../../shared/components/files/UploadSingleFile.js';
+import AwsUpload from '../../../shared/components/files/awsUpload.js';
 import BarstenEditor from '../../../shared/components/utilities/BarstenEditor.js';
 import AddLink from '../../../shared/components/links/AddLink.js';
 
@@ -82,7 +83,8 @@ export default class EditArtist extends TrackerReact(React.Component) {
 
 	openEditBanner () {
 		
-		$('#newArtistBanner').trigger('click');
+		// $('#newArtistBanner').trigger('click');
+		$('#newArtistImage').trigger('click');
 	}
 
 	editName () {
@@ -198,9 +200,16 @@ export default class EditArtist extends TrackerReact(React.Component) {
 
 		return (
 			<div id="artistEdit">
+
+				
 				{this.getArtist().map((artist) => {
 
 					const songkickId = artist.songkickId ? artist.songkickId : '';
+					let imageUrl = artist.imageUrl;
+
+					if (artist.bannerImageId) {
+						imageUrl = `/images/${artist.bannerImageId}?size=800x400`;
+					}
 
 					var links = '';
 
@@ -243,10 +252,17 @@ export default class EditArtist extends TrackerReact(React.Component) {
 					return (
 						<div key={artist._id}>
 
+							<AwsUpload 
+								elementId="newArtistImage"
+								postUploadMethod="changeArtistImage"
+								associatedId={artist._id}
+								image
+							/>
+
 							<div className="container-fluid">
 
 								<div className="artist-banner" onClick={this.openEditBanner.bind(this)}>
-									<img src={artist.imageUrl} className="img-responsive" />
+									<img src={imageUrl} className="img-responsive" />
 								</div>
 
 								<UploadSingleFile 

@@ -26,28 +26,43 @@ Meteor.methods({
 	'changeArtistName': function (artistId, newName) {
 		Artists.update({_id: artistId}, {$set: {name: newName}});
 	},
-	'changeArtistImage': function (artistId, imageId) {
+	'changeArtistImage': function (file) {
+
+		check(file, Object);
+		const artistId = file.associatedId;
 
 		// Get old image id
 		var artist = Artists.findOne({_id: artistId});
 
-		if (artist.localImageId) {
-			var oldId = artist.localImageId;
-		}
+		if (artist.bannerImageId) {
+			Meteor.call('file.toTrash', artist.bannerImageId, 'image', (err, res) => {
+				if (err) {
+					console.log(err);
+				}
+			});
+		};
 
-		// Update to new image
-		var link = UserFiles.findOne({_id: imageId}).link();
+		Meteor.call('file.add', file, 'image', (err, res) => {
+			if (err) {
+				console.log(err);
+			} else {
+				Artists.update({_id: artistId}, {$set: {bannerImageId: res.localId}});
+				// Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.image.awsKey': res.awsKey, 'profile.image.localId': res.localId}});
+			}
+		});
 
-		Artists.update({_id: artistId}, {$set: {
-			imageUrl: link,
-			localImageId: imageId,
-			lastChanged: new Date()
-		}});
+		// // Update to new image
+		// var link = UserFiles.findOne({_id: imageId}).link();
 
-		// Remove old image
-		if (oldId) {
-			UserFiles.remove({_id: oldId});
-		}
+		// Artists.update({_id: artistId}, {$set: {
+		// 	localImageId: imageId,
+		// 	lastChanged: new Date()
+		// }});
+
+		// // Remove old image
+		// if (oldId) {
+		// 	UserFiles.remove({_id: oldId});
+		// }
 		
 	},
 	'updateArtist': function (artistId, field, content) {

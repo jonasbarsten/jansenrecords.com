@@ -50,6 +50,8 @@ export default class UploadSingleFile extends Component {
 
 				uploadInstance.on('end', (error, fileObj) => {
 
+					console.log('yoyo ' + fileObj._id);
+
 					Meteor.call(this.props.postUploadMethod, this.props.postUploadMethodArgument, fileObj._id);
 				});
 

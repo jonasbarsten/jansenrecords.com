@@ -72,6 +72,10 @@ const ArtistsSchema = new SimpleSchema({
 		type: String,
 		optional: true
 	},
+	"bannerImageId": {
+		type: String,
+		optional: true
+	},
 	"lastChanged": {
 		type: Date,
 		label: "Last changed",

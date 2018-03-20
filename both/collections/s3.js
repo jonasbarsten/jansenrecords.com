@@ -1,5 +1,7 @@
 import { FilesCollection } from 'meteor/ostrio:files';
 
+console.log(Random.id());
+
 var knox, bound, client, Request, cfdomain = {};
 
 if (Meteor.isServer) {
@@ -24,7 +26,7 @@ if (Meteor.isServer) {
 }
 
 UserFiles = new FilesCollection({
-  debug: false, // Change to `true` for debugging
+  debug: true, // Change to `true` for debugging
   throttle: false,
   storagePath: 'assets/app/uploads/uploadedFiles',
   collectionName: 'userFiles',

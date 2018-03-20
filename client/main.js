@@ -40,6 +40,9 @@ import Login from './front/components/users/Login.js';
 import InviteSignUp from './front/components/users/InviteSignUp.js';
 import Forgot from './front/components/users/Forgot.js';
 
+// import '/node_modules/bootstrap/dist/css/bootstrap.min.css';
+// import '/node_modules/bootstrap/dist/js/bootstrap.min.js';
+
 // ACCOUNT ROUTES
 
 // Redirect to '/' on logout, uses gwendall:accounts-helpers
