@@ -73,13 +73,19 @@ export default class ReleaseSingle extends TrackerReact(React.Component) {
 
 					document.title = "Jansen || " + release.name;
 
+					let imageUrl = release.imageUrl;
+
+					if (release.coverImageId) {
+						imageUrl = `/images/${release.coverImageId}?size=350x350`;
+					}
+
 					return (
 						<div key={release._id}>
 
 							<div className="container-fluid">
 
 								<div className="release-banner">
-									<img src={release.imageUrl} className="img-responsive" />
+									<img src={imageUrl} className="img-responsive" />
 								</div>
 								
 								<div className="container">

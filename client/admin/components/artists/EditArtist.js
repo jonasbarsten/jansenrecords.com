@@ -6,7 +6,7 @@ import Masonry from 'react-masonry-component';
 import Reorder from 'react-reorder';
 import _ from 'lodash';
 
-import UploadSingleFile from '../../../shared/components/files/UploadSingleFile.js';
+// import UploadSingleFile from '../../../shared/components/files/UploadSingleFile.js';
 import AwsUpload from '../../../shared/components/files/awsUpload.js';
 import BarstenEditor from '../../../shared/components/utilities/BarstenEditor.js';
 import AddLink from '../../../shared/components/links/AddLink.js';
@@ -265,13 +265,13 @@ export default class EditArtist extends TrackerReact(React.Component) {
 									<img src={imageUrl} className="img-responsive" />
 								</div>
 
-								<UploadSingleFile 
+								{/* <UploadSingleFile 
 									elementId="newArtistBanner" 
 									attatchToCategory="artistImage"
 									attatchToId={artist._id}
 									postUploadMethod="changeArtistImage"
 									postUploadMethodArgument={artist._id}
-								/>
+								/> */}
 								
 								<div className="container">
 

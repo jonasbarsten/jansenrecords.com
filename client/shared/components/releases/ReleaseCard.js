@@ -4,10 +4,18 @@ export default class ReleaseCard extends Component {
 
 	render() {
 
+		const release = this.props.release;
+
+		let imageUrl = release.imageUrl;
+
+		if (release.coverImageId) {
+			imageUrl = `/images/${release.coverImageId}?size=350x350`;
+		}
+
 		return (
 			<div className='release-card col-xs-6 col-sm-4 hover' onClick={this.props.onClick}>
-				<img src={this.props.release.imageUrl} className="img-responsive center-block" />
-				<span className="truncate">{this.props.release.name} ({this.props.release.albumType})</span>
+				<img src={imageUrl} className="img-responsive center-block" />
+				<span className="truncate">{release.name} ({release.albumType})</span>
 			</div>
 		);
 	}

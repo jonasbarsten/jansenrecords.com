@@ -80,6 +80,30 @@ Meteor.methods({
 		}
 		
 	},
+	'changeReleaseCover': function (file) {
+		check(file, Object);
+		const releaseId = file.associatedId;
+
+		// Get old image id
+		var release = Releases.findOne({_id: releaseId});
+
+		if (release.coverImageId) {
+			Meteor.call('file.toTrash', release.coverImageId, 'image', (err, res) => {
+				if (err) {
+					console.log(err);
+				}
+			});
+		};
+
+		// Register file and attatch to release
+		Meteor.call('file.add', file, 'image', (err, res) => {
+			if (err) {
+				console.log(err);
+			} else {
+				Releases.update({_id: releaseId}, {$set: {coverImageId: res.localId}});
+			}
+		});
+	},
 	'changeReleaseDate': function (releaseId, date) {
 
 		Releases.update({_id: releaseId}, {$set: {releaseDate: date}});

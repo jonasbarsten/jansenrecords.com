@@ -7,7 +7,8 @@ import moment from 'moment';
 import Reorder from 'react-reorder';
 import _ from 'lodash';
 
-import UploadSingleFile from '../../../shared/components/files/UploadSingleFile.js';
+// import UploadSingleFile from '../../../shared/components/files/UploadSingleFile.js';
+import AwsUpload from '../../../shared/components/files/awsUpload.js';
 import BarstenEditor from '../../../shared/components/utilities/BarstenEditor.js';
 import AddLink from '../../../shared/components/links/AddLink.js';
 import ListLinks from '../../../shared/components/links/ListLinks.js';
@@ -93,7 +94,7 @@ export default class EditRelease extends TrackerReact(React.Component) {
 
 	openEditImage () {
 		
-		$('#newReleaseImage').trigger('click');
+		$('#newReleaseCover').trigger('click');
 	}
 
 	editName () {
@@ -315,6 +316,11 @@ export default class EditRelease extends TrackerReact(React.Component) {
 
 					const releaseType = release.albumType ? release.albumType : 'no album type ...';
 					const artists = release.artist ? release.artist : [];
+					let imageUrl = release.imageUrl;
+
+					if (release.coverImageId) {
+						imageUrl = `/images/${release.coverImageId}?size=350x350`;
+					}
 
 					var links = '';
 
@@ -358,16 +364,23 @@ export default class EditRelease extends TrackerReact(React.Component) {
 							<div className="container-fluid">
 
 								<div className="release-banner" onClick={this.openEditImage.bind(this)}>
-									<img src={release.imageUrl} className="img-responsive" />
+									<img src={imageUrl} className="img-responsive" />
 								</div>
 
-								<UploadSingleFile 
+								<AwsUpload 
+									elementId="newReleaseCover"
+									postUploadMethod="changeReleaseCover"
+									associatedId={release._id}
+									image
+								/>
+
+								{/* <UploadSingleFile 
 									elementId="newReleaseImage" 
 									attatchToCategory="releaseImage"
 									attatchToId={release._id}
 									postUploadMethod="changeReleaseImage"
 									postUploadMethodArgument={release._id}
-								/>
+								/> */}
 								
 								<div className="container">
 

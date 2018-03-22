@@ -48,6 +48,10 @@ const ReleasesSchema = new SimpleSchema({
 		type: String,
 		optional: true
 	},
+	"coverImageId": {
+		type: String,
+		optional: true
+	},
 	"links": {
 		type: [Object],
 		optional: true
