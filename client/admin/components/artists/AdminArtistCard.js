@@ -10,7 +10,7 @@ export default class AdminArtistCard extends Component {
 		let imageUrl = artist.imageUrl;
 
 		if (artist.bannerImageId) {
-			imageUrl = `/images/${artist.bannerImageId}?size=300x150`;
+			imageUrl = `/images/${artist.bannerImageId}?size=300x200`;
 		}
 
 		return (

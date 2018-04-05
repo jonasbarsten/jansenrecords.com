@@ -21,14 +21,6 @@ a, a:hover, a:visited {
 	text-decoration: inherit;
 }
 
-body {
-	border: 30px solid transparent;
-	padding: 5px;
-	-webkit-border-image: url('/images/ja-bg.jpg') 30 round; /* Safari 3.1-5 */
-	-o-border-image: url('/images/ja-bg.jpg') 30 round; /* Opera 11-12.1 */
-	border-image: url('/images/ja-bg.jpg') 30 round;
-}
-
 .hover:hover {
 	cursor: pointer;
 }
@@ -167,8 +159,8 @@ body {
 	object-fit: cover;
 	min-width: 100%;
 	max-width: 100%;
-	max-height: 120px;
-	min-height: 120px;
+	max-height: 100px;
+	min-height: 100px;
 }
 
 .artist-card span {
@@ -274,12 +266,26 @@ body {
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
+
+	body {
+		border: 30px solid transparent;
+		padding: 5px;
+		-webkit-border-image: url('/images/ja-bg.jpg') 30 round; /* Safari 3.1-5 */
+		-o-border-image: url('/images/ja-bg.jpg') 30 round; /* Opera 11-12.1 */
+		border-image: url('/images/ja-bg.jpg') 30 round;
+	}
+
 	#mobile-ekstra-menu-item {
 		display: none;
 	}
 
 	.artist-card span {
 		font-size: 1em;
+	}
+
+	.artist-card img {
+		max-height: 200px;
+		min-height: 200px;
 	}
 }
 
