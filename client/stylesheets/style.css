@@ -177,7 +177,7 @@ body {
 
 .artist-banner img {
 	min-width: 100%;
-    max-height: 400px;
+    max-height: 600px;
     object-fit: cover;
 }
 

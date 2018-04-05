@@ -81,7 +81,7 @@ export default class ArtistSingle extends TrackerReact(React.Component) {
 					let imageUrl = artist.imageUrl;
 
 					if (artist.bannerImageId) {
-						imageUrl = `/images/${artist.bannerImageId}?size=800x400`;
+						imageUrl = `/images/${artist.bannerImageId}?size=1000x600`;
 					}
 
 					return (
