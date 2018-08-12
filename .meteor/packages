@@ -34,7 +34,7 @@ accounts-base@1.4.2				# !!! Must be explicitly added due to ostrio:files !!!, s
 accounts-password@1.5.1
 
 alanning:roles
-gwendall:accounts-helpers
+# gwendall:accounts-helpers
 
 meteorhacks:ssr
 
