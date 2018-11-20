@@ -59,7 +59,7 @@ export default class Home extends TrackerReact(React.Component) {
 							const url = '/pages/' + page.urlFriendlyName;
 							return <Link to={url} key={page._id}><span className="col-centered col-sm-2 col-xs-4"> {page.name}</span></Link>
 						})}
-						<a target="self" href="http://www.jansenrecords.tigernet.no/"><span className="col-centered col-sm-2 col-xs-4"> Store</span></a>
+						<a target="self" href="https://jansenrecords.tigernet.no/"><span className="col-centered col-sm-2 col-xs-4"> Store</span></a>
 
 						<Link to="#"><span id="mobile-ekstra-menu-item" className="col-centered col-sm-2 col-xs-4">-</span></Link>
 						
