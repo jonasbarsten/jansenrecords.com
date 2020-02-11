@@ -267,13 +267,13 @@ a, a:hover, a:visited {
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
 
-	body {
+/*	body {
 		border: 30px solid transparent;
 		padding: 5px;
-		-webkit-border-image: url('/images/ja-bg.jpg') 30 round; /* Safari 3.1-5 */
-		-o-border-image: url('/images/ja-bg.jpg') 30 round; /* Opera 11-12.1 */
+		-webkit-border-image: url('/images/ja-bg.jpg') 30 round;
+		-o-border-image: url('/images/ja-bg.jpg') 30 round;
 		border-image: url('/images/ja-bg.jpg') 30 round;
-	}
+	}*/
 
 	#mobile-ekstra-menu-item {
 		display: none;
