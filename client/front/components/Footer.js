@@ -18,8 +18,18 @@ class Footer extends Component {
 							</Link>
 						</div>
 						<div className="col-sm-4 col-xs-12 text-center">
-							<Link target="blank" to="http://round2.no">
+							<Link target="blank" to="https://round2.no">
 								Round 2
+							</Link>
+						</div>
+						<div className="col-sm-4 col-xs-12 text-center">
+							<Link target="blank" to="https://pekula.no">
+								Pekula
+							</Link>
+						</div>
+						<div className="col-sm-4 col-xs-12 text-center">
+							<Link target="blank" to="https://www.diewithyourbootson.no/">
+								Die With Your Boots On
 							</Link>
 						</div>
 					</div>

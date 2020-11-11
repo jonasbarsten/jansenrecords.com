@@ -63,7 +63,7 @@ export default class NavBar extends TrackerReact(React.Component) {
 								return <NavLink key={page._id} to={link}>{page.name}</NavLink>
 							})}
 
-							<li><a target="self" href="http://www.jansenplateproduksjon.tigernet.no/">Store</a></li>
+							<li><a target="self" href="https://jansenrecords.tigernet.no/">Store</a></li>
 						</ul>
 					</div>
 				</div>
